@@ -349,6 +349,14 @@ OpcUa_StatusCode OPCUA_DLLCALL ualds_zeroconf_registerInternal(OpcUa_Void*  pvCa
             continue;
         }
 
+        if (strcmp(szHostName, "localhost") == 0)
+        {
+            uStatus = OpcUa_Good;
+            bOwnRegistration = OpcUa_False;
+            pRegisterContext = (ualds_registerContext*)OpcUa_List_GetNextElement(&g_lstServers);
+            continue;
+        }
+
         if (bOwnRegistration != OpcUa_False)
         {
             /* replace [gethostname] in own server name */
